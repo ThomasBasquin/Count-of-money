@@ -10,7 +10,7 @@ services:
       - app-network
 
   api:
-    build: .
+    build: ./backend
     ports:
       - '3000:3000'
     environment:
