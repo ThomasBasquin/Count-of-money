@@ -1,0 +1,138 @@
+# Dépendances
+/node_modules
+/.pnp
+.pnp.js
+
+# Fichiers de compilation
+/build
+/dist
+
+# Fichiers de logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Fichiers et dossiers Docker
+**/node_modules
+**/npm-debug.log
+docker-compose*.yml
+*.dockerfile
+Dockerfile
+.dockerignore
+/.docker
+
+# Ignorer les fichiers de l'éditeur et les fichiers de configuration temporaire
+.editorconfig
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Fichiers de système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Archive de l'éditeur de texte Sublime Text
+*.sublime-workspace
+
+# Fichiers de profilage / performance
+.profdata
+
+# Fichiers de configuration du projet
+/project-config.json
+
+# Dossiers générés par l'IDE
+/.idea/
+/.vscode/
+/.history/
+
+# Fichiers de paquets
+*.tgz
+/package-lock.json
+/yarn.lock
+
+# Fichiers de cache de typescript
+*.tsbuildinfo
+
+# Fichiers de cache de test
+/coverage
+/.nyc_output
+
+# Fichiers de sortie de l'analyseur de bundle
+.bundle-report.json
+
+# Fichiers de compilation Babel & TypeScript
+/out-tsc
+/lib-cov
+*.js.map
+*.mjs.map
+*.css.map
+
+# Fichiers de configuration Typings
+typings/
+
+# Applications configurées par l'utilisateur
+/.snyk
+/.vs/
+.sass-cache
+/connect.lock
+/typings/
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Fichiers spécifiques à MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Fichiers de thumbnail
+._*
+
+# Fichiers de cache d'icônes
+Icon?
+
+# Fichiers de logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Répertoire de sortie du compilateur
+dist/
+tmp/
+out/
+
+# Fichiers de performances de Yarn
+.yarn-integrity
+.yarn-metadata.json
+.yarn-tarball.tgz
+
+# Fichiers de journalisation de l'installation de Yarn
+.yarn-install.log
+
+# Fichiers de log Lerna
+lerna-debug.log
+
+# OS trash
+.Trashes
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.swp
+*.swo
