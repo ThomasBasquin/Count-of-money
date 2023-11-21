@@ -4,16 +4,19 @@ import session from 'express-session';
 import dotenv from 'dotenv';
 import { redisClient, RedisStore } from './config/redis.js';
 import connectDB from './config/mongo.js';
-import routes from './api/routes/index.js';
+import routes from './routes/index.js';
 
 const app = express();
 dotenv.config();
+
+console.log(process.env.SESSION_SECRET);
 
 await connectDB().catch(err => {
   console.error(err);
   process.exit(1);
 });
 
+app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   session({

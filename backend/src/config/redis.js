@@ -4,7 +4,7 @@ import connectRedis from 'connect-redis';
 
 let redisClient = createClient({
   socket: {
-    host: 'redis',
+    host: 'localhost',
     port: 6379,
   },
 });
