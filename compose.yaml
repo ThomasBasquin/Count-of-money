@@ -13,6 +13,7 @@ services:
 
   mongo:
     image: 'mongo:4.4.4'
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
@@ -30,7 +31,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - SESSION_SECRET=jHg23!23FeZ?6G2
+      - SESSION_SECRET=16b99969d371dfa661379a943e7de22455d993814399e045dda3307506865c117fa9c6a636500437021520a3255aa6e1b46567927ac1d4280c925e5f64fd9859
     depends_on:
       - redis
     networks:
