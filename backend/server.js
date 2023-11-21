@@ -1,26 +1,37 @@
 import express from 'express';
 import session from 'express-session';
-import connectRedis from 'connect-redis';
 import { createClient } from 'redis';
 import dotenv from 'dotenv';
+import RedisStore from 'connect-redis';
 
 dotenv.config();
 
 const app = express();
-const RedisStore = connectRedis(session);
-const redisClient = createClient({
+const port = process.env.PORT || 3000;
+let redisClient = createClient({
   socket: {
     host: 'redis',
-    port: '6379',
+    port: 6379,
   },
 });
 
-redisClient.on('error', err => console.error('Redis Client Error', err));
+redisClient.on('connect', () => {
+  console.log('Connecté à Redis avec succès!');
+});
+
+redisClient.on('error', err => {
+  console.error('Erreur de client Redis', err);
+});
+
 await redisClient.connect();
+
+let redisStore = new RedisStore({
+  client: redisClient,
+});
 
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: redisStore,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
