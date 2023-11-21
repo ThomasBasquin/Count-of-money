@@ -3,6 +3,7 @@ import session from 'express-session';
 import { createClient } from 'redis';
 import dotenv from 'dotenv';
 import RedisStore from 'connect-redis';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -30,6 +31,9 @@ let redisStore = new RedisStore({
 });
 
 app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
   session({
     store: redisStore,
     secret: process.env.SESSION_SECRET,
