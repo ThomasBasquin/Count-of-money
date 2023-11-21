@@ -1,13 +1,26 @@
-const express = require('express');
-const session = require('express-session');
-let RedisStore = require('connect-redis')(session);
-let redisClient = require('redis').createClient();
-require('dotenv').config();
+import express from 'express';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import { createClient } from 'redis';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const app = express();
-const port = process.env.PORT || 3000;
+const RedisStore = connectRedis(session);
+const redisClient = createClient({
+  socket: {
+    host: 'redis',
+    port: '6379',
+  },
+});
+
+redisClient.on('error', err => console.error('Redis Client Error', err));
+await redisClient.connect();
 
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
