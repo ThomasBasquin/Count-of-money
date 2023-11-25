@@ -7,6 +7,7 @@ import connectDB from './config/mongo.js';
 import routes from './routes/index.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './config/swaggerConfig.js';
+import passport from 'passport';
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,8 @@ await connectDB().catch(err => {
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(
   session({
     store: RedisStore,
@@ -34,5 +37,15 @@ app.use(
   })
 );
 app.use('/api', routes);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 export default app;
