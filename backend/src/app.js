@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { redisClient, RedisStore } from './config/redis.js';
 import connectDB from './config/mongo.js';
 import routes from './routes/index.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './config/swaggerConfig.js';
 
 const app = express();
 dotenv.config();
@@ -18,6 +20,7 @@ await connectDB().catch(err => {
 
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));
+app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(
   session({
     store: RedisStore,
