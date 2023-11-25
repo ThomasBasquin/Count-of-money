@@ -50,7 +50,7 @@ const userController = {
   updateProfile: async (req, res) => {
     try {
       const user = await userService.updateProfile(
-        req.session.user.id,
+        req.session.user._id,
         req.body
       );
       res
