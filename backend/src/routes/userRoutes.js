@@ -333,6 +333,10 @@ export default router;
  *           items:
  *             type: string
  *             description: Array of keywords for the press review
+ *         role:
+ *          type: string
+ *          enum: ['user', 'admin']
+ *          default: 'user'
  *       example:
  *         username: user123
  *         email: user@example.com
