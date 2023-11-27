@@ -10,7 +10,10 @@ const router = express.Router();
  * /cryptos:
  *   get:
  *     summary: Get the list of cryptocurrencies and their info
- *     tags: [Cryptocurrencies]
+ *     tags: 
+ *       - Cryptos
+ *    security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: cmids
