@@ -1,12 +1,11 @@
 import express from 'express';
 import cryptoController from '../controllers/cryptoController.js';
 import validateCrypto from '../middleware/cryptoJoi.js';
-import { isAuth, isAdmin } from '../middleware/authMiddleware.js';
+import { isAuth, isNotAuth } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 /**
- *
  * @swagger
  * /cryptos:
  *   get:
@@ -61,25 +60,19 @@ const router = express.Router();
 router.get('/cryptos', cryptoController.getList);
 
 // GET les informations détaillées d'une crypto-monnaie spécifique
-router.get('/cryptos/:cmid', isAuth, cryptoController.getDetails);
+router.get('/cryptos/:cmid', isAuth, cryptoController.getCryptoById);
 
 // GET l'historique des prix d'une crypto-monnaie pour une période donnée
 router.get(
   '/cryptos/:cmid/history/:period',
   isAuth,
-  cryptoController.getPriceHistory
+  cryptoController.getCryptoHistory
 );
 
 // POST pour ajouter une nouvelle crypto-monnaie (seulement admin)
-router.post(
-  '/cryptos',
-  isAuth,
-  isAdmin,
-  validateCrypto,
-  cryptoController.addCrypto
-);
+router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
 
 // DELETE pour supprimer une crypto-monnaie (seulement admin)
-router.delete('/cryptos/:cmid', isAuth, isAdmin, cryptoController.deleteCrypto);
+router.delete('/cryptos/:cmid', isAuth, cryptoController.deleteCrypto);
 
 export default router;
