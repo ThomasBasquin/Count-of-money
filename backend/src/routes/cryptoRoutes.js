@@ -88,8 +88,7 @@ router.get('/cryptos', cryptoController.getList);
  *     deprecated: false
  */
 
-router.get('/cryptos/:cmid', isAuth, cryptoController.getDetails);
-
+router.get('/cryptos/:cmid', isAuth, cryptoController.getCryptoById);
 
 /**
  * @swagger
@@ -132,7 +131,6 @@ router.get(
   cryptoController.getCryptoHistory
 );
 
-
 /**
  * @swagger
  * /cryptos:
@@ -172,14 +170,7 @@ router.get(
  *     deprecated: false
  */
 
-router.post(
-  '/cryptos',
-  isAuth,
-  isAdmin,
-  validateCrypto,
-  cryptoController.addCrypto
-);
-
+router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
 
 /**
  * @swagger
@@ -212,7 +203,6 @@ router.post(
  *     deprecated: false
  */
 
-
-router.delete('/cryptos/:cmid', isAuth, isAdmin, cryptoController.deleteCrypto);
+router.delete('/cryptos/:cmid', isAuth, cryptoController.deleteCrypto);
 
 export default router;
