@@ -173,3 +173,53 @@ router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
 router.delete('/cryptos/:cmid', isAuth, cryptoController.deleteCrypto);
 
 export default router;
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Crypto:
+ *       type: object
+ *       required:
+ *         - cmid
+ *         - name
+ *         - currentPrice
+ *         - openingPrice
+ *         - lowestPriceOfDay
+ *         - highestPriceOfDay
+ *         - imageUrl
+ *       properties:
+ *         cmid:
+ *           type: string
+ *           description: Unique identifier for the cryptocurrency
+ *         name:
+ *           type: string
+ *           description: Full name of the cryptocurrency
+ *         currentPrice:
+ *           type: number
+ *           format: float
+ *           description: Current price of the cryptocurrency
+ *         openingPrice:
+ *           type: number
+ *           format: float
+ *           description: Opening price of the cryptocurrency
+ *         lowestPriceOfDay:
+ *           type: number
+ *           format: float
+ *           description: Lowest price of the day for the cryptocurrency
+ *         highestPriceOfDay:
+ *           type: number
+ *           format: float
+ *           description: Highest price of the day for the cryptocurrency
+ *         imageUrl:
+ *           type: string
+ *           description: URL of the corresponding image of the cryptocurrency
+ *       example:
+ *         cmid: bitcoin
+ *         name: Bitcoin
+ *         currentPrice: 50000
+ *         openingPrice: 49500
+ *         lowestPriceOfDay: 48000
+ *         highestPriceOfDay: 51000
+ *         imageUrl: 'http://example.com/bitcoin.jpg'
+ */
