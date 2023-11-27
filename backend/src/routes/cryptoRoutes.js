@@ -1,12 +1,11 @@
 import express from 'express';
 import cryptoController from '../controllers/cryptoController.js';
 import validateCrypto from '../middleware/cryptoJoi.js';
-import { isAuth, isAdmin } from '../middleware/authMiddleware.js';
+import { isAuth, isNotAuth } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 /**
- *
  * @swagger
  * /cryptos:
  *   get:
@@ -130,7 +129,7 @@ router.get('/cryptos/:cmid', isAuth, cryptoController.getDetails);
 router.get(
   '/cryptos/:cmid/history/:period',
   isAuth,
-  cryptoController.getPriceHistory
+  cryptoController.getCryptoHistory
 );
 
 

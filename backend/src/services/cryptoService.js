@@ -1,4 +1,4 @@
-const Crypto = require('../models/crypto.model');
+import Crypto from '../models/crypto.model.js';
 
 const cryptoService = {
   getCryptos: async cmids => {
@@ -29,4 +29,4 @@ const cryptoService = {
   },
 };
 
-module.exports = cryptoService;
+export default cryptoService;
