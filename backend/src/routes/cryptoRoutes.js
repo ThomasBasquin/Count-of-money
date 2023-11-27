@@ -121,7 +121,8 @@ router.get(
  *               symbol:
  *                 type: string
  *                 description: The symbol of the cryptocurrency.
- *               // Add other required properties for the cryptocurrency here.
+
+ *
  *     responses:
  *       201:
  *         description: Cryptocurrency added successfully.
