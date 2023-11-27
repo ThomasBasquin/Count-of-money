@@ -9,55 +9,18 @@ const router = express.Router();
  * @swagger
  * /cryptos:
  *   get:
- *     summary: Get the list of cryptocurrencies and their info
- *     tags: 
+ *     summary: Get List of Cryptocurrencies
+ *     description: Retrieves a list of cryptocurrencies.
+ *     tags:
  *       - Cryptos
- *    security:
+ *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: cmids
- *         schema:
- *           type: string
- *         required: false
- *         description: Optional comma-separated cryptocurrency IDs to filter the list
  *     responses:
  *       200:
- *         description: A list of cryptocurrencies and their information
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   cmid:
- *                     type: string
- *                     description: The unique identifier for the cryptocurrency
- *                   name:
- *                     type: string
- *                     description: Full name of the cryptocurrency
- *                   currentPrice:
- *                     type: number
- *                     format: float
- *                     description: Current price of the cryptocurrency
- *                   openingPrice:
- *                     type: number
- *                     format: float
- *                     description: Opening price of the cryptocurrency
- *                   lowestPriceOfDay:
- *                     type: number
- *                     format: float
- *                     description: Lowest price of the day for the cryptocurrency
- *                   highestPriceOfDay:
- *                     type: number
- *                     format: float
- *                     description: Highest price of the day for the cryptocurrency
- *                   imageUrl:
- *                     type: string
- *                     description: URL of the corresponding image of the cryptocurrency
- *       400:
- *         description: Bad request if the cmids query parameter is not formatted correctly
+ *         description: Successful retrieval of the list of cryptocurrencies.
+ *       500:
+ *         description: Internal server error.
+ *     deprecated: false
  */
 
 router.get('/cryptos', cryptoController.getList);
