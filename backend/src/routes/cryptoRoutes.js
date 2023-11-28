@@ -7,55 +7,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * /cryptos:
- *   get:
- *     summary: Get List of Cryptocurrencies
- *     description: Retrieves a list of cryptocurrencies.
- *     tags:
- *       - Cryptos
- *     responses:
- *       200:
- *         description: Successful retrieval of the list of cryptocurrencies.
- *       500:
- *         description: Internal server error.
- *     deprecated: false
- */
-
-router.get('/cryptos', cryptoController.getList);
-
-/**
- * @swagger
- * /cryptos/{cmid}:
- *   get:
- *     summary: Get Details of a Specific Cryptocurrency
- *     description: Retrieves details of a cryptocurrency based on its ID.
- *     tags:
- *       - Cryptos
- *     security:
- *       - cookieAuth: []
- *     parameters:
- *       - name: cmid
- *         in: path
- *         description: Cryptocurrency ID.
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Successful retrieval of cryptocurrency details.
- *       401:
- *         description: User is not authenticated.
- *       404:
- *         description: The specified cryptocurrency was not found.
- *       500:
- *         description: Internal server error.
- *     deprecated: false
- */
-
-router.get('/cryptos/:cmid', isAuth, cryptoController.getCryptoById);
-
-/**
- * @swagger
  * /cryptos/{cmid}/history/{period}:
  *   get:
  *     summary: Get Price History of a Specific Cryptocurrency
@@ -89,11 +40,56 @@ router.get('/cryptos/:cmid', isAuth, cryptoController.getCryptoById);
  *     deprecated: false
  */
 
-router.get(
-  '/cryptos/:cmid/history/:period',
-  isAuth,
-  cryptoController.getCryptoHistory
-);
+router.get('/:cmid/history/:period', isAuth, cryptoController.getCryptoHistory);
+
+/**
+ * @swagger
+ * /cryptos/{cmid}:
+ *   get:
+ *     summary: Get Details of a Specific Cryptocurrency
+ *     description: Retrieves details of a cryptocurrency based on its ID.
+ *     tags:
+ *       - Cryptos
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - name: cmid
+ *         in: path
+ *         description: Cryptocurrency ID.
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful retrieval of cryptocurrency details.
+ *       401:
+ *         description: User is not authenticated.
+ *       404:
+ *         description: The specified cryptocurrency was not found.
+ *       500:
+ *         description: Internal server error.
+ *     deprecated: false
+ */
+
+router.get('/:cmid', isAuth, cryptoController.getCryptoById);
+
+/**
+ * @swagger
+ * /cryptos:
+ *   get:
+ *     summary: Get List of Cryptocurrencies
+ *     description: Retrieves a list of cryptocurrencies.
+ *     tags:
+ *       - Cryptos
+ *     responses:
+ *       200:
+ *         description: Successful retrieval of the list of cryptocurrencies.
+ *       500:
+ *         description: Internal server error.
+ *     deprecated: false
+ */
+
+router.get('/', cryptoController.getList);
 
 /**
  * @swagger
@@ -135,7 +131,7 @@ router.get(
  *     deprecated: false
  */
 
-router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
+router.post('/', isAuth, cryptoController.addCrypto);
 
 /**
  * @swagger
@@ -168,7 +164,7 @@ router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
  *     deprecated: false
  */
 
-router.delete('/cryptos/:cmid', isAuth, cryptoController.deleteCrypto);
+router.delete('/:cmid', isAuth, cryptoController.deleteCrypto);
 
 export default router;
 
