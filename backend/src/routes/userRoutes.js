@@ -165,7 +165,7 @@ router.post('/login', isNotAuth, userController.login);
  *     summary: Retrieve the profile of the logged-in user
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []  # Assumes you have already defined the security scheme 'bearerAuth'
+ *      - cookieAuth: []
  *     responses:
  *       200:
  *         description: Profile information retrieved successfully
@@ -212,7 +212,7 @@ router.get('/profile', isAuth, userController.getProfile);
  *     summary: Update user's profile information
  *     tags: [Users]
  *     security:
- *       - bearerAuth: []  # Assumes you have already defined the security scheme 'bearerAuth'
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -285,7 +285,7 @@ router.put('/profile', isAuth, validateUser, userController.updateProfile);
  *     summary: Log out the current user and destroy the session
  *     tags: [Users]
  *     security:
- *       - cookieAuth: []  # Assumes you have defined the security scheme 'cookieAuth' for the session cookie
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: User logged out successfully and session destroyed

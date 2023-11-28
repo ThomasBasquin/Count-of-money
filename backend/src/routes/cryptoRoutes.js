@@ -13,8 +13,6 @@ const router = express.Router();
  *     description: Retrieves a list of cryptocurrencies.
  *     tags:
  *       - Cryptos
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Successful retrieval of the list of cryptocurrencies.
@@ -34,7 +32,7 @@ router.get('/cryptos', cryptoController.getList);
  *     tags:
  *       - Cryptos
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: cmid
  *         in: path
@@ -65,7 +63,7 @@ router.get('/cryptos/:cmid', isAuth, cryptoController.getCryptoById);
  *     tags:
  *       - Cryptos
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: cmid
  *         in: path
@@ -106,7 +104,7 @@ router.get(
  *     tags:
  *       - Cryptos
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     requestBody:
  *       description: Data for the new cryptocurrency.
  *       required: true
@@ -148,7 +146,7 @@ router.post('/cryptos', isAuth, validateCrypto, cryptoController.addCrypto);
  *     tags:
  *       - Cryptos
  *     security:
- *       - bearerAuth: []
+ *       - cookieAuth: []
  *     parameters:
  *       - name: cmid
  *         in: path

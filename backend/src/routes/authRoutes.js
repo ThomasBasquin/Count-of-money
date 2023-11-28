@@ -12,8 +12,6 @@ const router = express.Router();
  *     description: Redirects the user to the Google authentication screen.
  *     tags:
  *       - Authentication
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       302:
  *         description: Redirect to the Google authentication screen.
@@ -36,8 +34,6 @@ router.get(
  *     description: Handles the callback from Google authentication after the user has granted access.
  *     tags:
  *       - Authentication
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: code
  *         in: query
