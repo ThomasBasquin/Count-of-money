@@ -1,15 +1,17 @@
 import Joi from 'joi';
 
 const cryptoSchema = Joi.object({
-  cmid: Joi.string().required(),
-  name: Joi.string().required(),
-  currentPrice: Joi.number().required(),
-  openingPrice: Joi.number().required(),
-  lowestPriceOfDay: Joi.number().required(),
-  highestPriceOfDay: Joi.number().required(),
-  imageUrl: Joi.string()
-    .pattern(new RegExp('(http(s?):)([/|.|w|s|-])*.(?:jpg|gif|png)'))
+  cmid: Joi.string()
+    .pattern(/^[A-Z0-9]+$/)
     .required(),
+  name: Joi.string().required(),
+  currentPrice: Joi.number(),
+  openingPrice: Joi.number(),
+  lowestPriceOfDay: Joi.number(),
+  highestPriceOfDay: Joi.number(),
+  imageUrl: Joi.string().pattern(
+    new RegExp('(http(s?):)([/|.|w|s|-])*.(?:jpg|gif|png)')
+  ),
 });
 
 const validateCrypto = (req, res, next) => {

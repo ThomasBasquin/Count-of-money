@@ -131,7 +131,7 @@ router.get('/', cryptoController.getList);
  *     deprecated: false
  */
 
-router.post('/', isAuth, cryptoController.addCrypto);
+router.post('/', isAuth, validateCrypto, cryptoController.addCrypto);
 
 /**
  * @swagger
