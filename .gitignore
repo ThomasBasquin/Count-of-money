@@ -23,8 +23,6 @@ yarn-error.log*
 **/node_modules
 **/npm-debug.log
 docker-compose*.yml
-*.dockerfile
-Dockerfile
 .dockerignore
 /.docker
 
