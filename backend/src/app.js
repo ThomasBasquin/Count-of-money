@@ -22,8 +22,6 @@ await connectDB().catch(err => {
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(
   session({
     store: RedisStore,
@@ -36,6 +34,8 @@ app.use(
     },
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api', routes);
 
 passport.serializeUser((user, done) => {
