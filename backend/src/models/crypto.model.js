@@ -14,16 +14,34 @@ const cryptoSchema = new mongoose.Schema(
       required: [true, 'Le nom complet de la crypto-monnaie est requis'],
       trim: true,
     },
-    currentPrice: {
+    marketCap: {
       type: Number,
     },
-    openingPrice: {
+    marketCapRank: {
+      type: Number,
+    },
+    currentPrice: {
       type: Number,
     },
     lowestPriceOfDay: {
       type: Number,
     },
     highestPriceOfDay: {
+      type: Number,
+    },
+    priceChangePercentage1h: {
+      type: Number,
+    },
+    priceChangePercentage24h: {
+      type: Number,
+    },
+    priceChangePercentage7d: {
+      type: Number,
+    },
+    priceChangePercentage30d: {
+      type: Number,
+    },
+    ath: {
       type: Number,
     },
     imageUrl: {
