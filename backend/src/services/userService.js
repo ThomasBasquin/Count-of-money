@@ -17,7 +17,6 @@ const userService = {
 
   login: async ({ email, password }) => {
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       throw new Error('Aucun utilisateur trouvé avec cet email.');
     }
