@@ -8,6 +8,7 @@ import routes from './routes/index.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './config/swaggerConfig.js';
 import passport from 'passport';
+import fetchCryptoData from './tasks/fetchCryptoData.js';
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,8 @@ await connectDB().catch(err => {
   console.error(err);
   process.exit(1);
 });
+
+// fetchCryptoData();
 
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));

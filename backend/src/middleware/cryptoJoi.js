@@ -9,7 +9,13 @@ const cryptoSchema = Joi.object({
   openingPrice: Joi.number(),
   lowestPriceOfDay: Joi.number(),
   highestPriceOfDay: Joi.number(),
-  imageUrl: Joi.string().pattern(
+  imageThumbUrl: Joi.string().pattern(
+    new RegExp('(http(s?):)([/|.|w|s|-])*.(?:jpg|gif|png)')
+  ),
+  imageSmallUrl: Joi.string().pattern(
+    new RegExp('(http(s?):)([/|.|w|s|-])*.(?:jpg|gif|png)')
+  ),
+  imageLargeUrl: Joi.string().pattern(
     new RegExp('(http(s?):)([/|.|w|s|-])*.(?:jpg|gif|png)')
   ),
 });
