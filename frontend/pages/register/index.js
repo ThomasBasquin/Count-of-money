@@ -23,6 +23,9 @@ const Register = () => {
             console.log(response.data);
             toast.success('Votre compte a bien été créé !')
             isSuccessful(true);
+            setInterval(() => {
+                window.location.href = '/login'
+            }, 3000)
             // Gérer la réponse ici, comme rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
             console.error('Erreur de connexion', error);

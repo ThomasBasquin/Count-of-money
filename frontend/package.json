@@ -20,7 +20,8 @@
     "react-use": "^17.4.2",
     "sonner": "^1.2.4",
     "tailwindcss": "^3.3.5",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "zustand": "^4.4.7"
   },
   "engines": {
     "node": ">=18"

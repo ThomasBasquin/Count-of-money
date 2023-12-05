@@ -17,10 +17,11 @@ const Login = () => {
                 email,
                 password
             });
-
-            const response_crypto = await axios.get('http://localhost:3000/api/cryptos');
             console.log(response_crypto.data);
             console.log(response.data);
+            setInterval(() => {
+                window.location.href = '/dashboard'
+            }, 3000)
             toast.success('Vous êtes connecté !')
             // Gérer la réponse ici, comme rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {

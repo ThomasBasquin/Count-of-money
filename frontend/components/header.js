@@ -13,7 +13,7 @@ export default function Header() {
                     </div>
                     <div>
                         <Link href="/dashboard" className="text-jumbo-500 hover:text-grey-600 px-4">Home</Link>
-                        <Link href="/dashboard/about" className="text-jumbo-500 hover:text-grey-600 px-4">About</Link>
+                        <Link href="/dashboard/list" className="text-jumbo-500 hover:text-grey-600 px-4">Cryptos</Link>
                         <Link href="/dashboard/contact" className="text-jumbo-500 hover:text-grey-600 px-4">Contact</Link>
                     </div>
                 </div>
