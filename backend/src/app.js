@@ -13,14 +13,12 @@ import fetchCryptoData from './tasks/fetchCryptoData.js';
 const app = express();
 dotenv.config();
 
-console.log(process.env.SESSION_SECRET);
-
 await connectDB().catch(err => {
   console.error(err);
   process.exit(1);
 });
 
-// fetchCryptoData();
+fetchCryptoData();
 
 app.use(express.json());
 app.use(helmet({ contentSecurityPolicy: false }));
