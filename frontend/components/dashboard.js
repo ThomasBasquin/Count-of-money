@@ -5,6 +5,8 @@ let tvScriptLoadingPromise;
 export default function Dashboard() {
     const onLoadScriptRef = useRef();
 
+    const currentCrypto = useRef();
+
     useEffect(
         () => {
             onLoadScriptRef.current = createWidget;
