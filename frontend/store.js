@@ -1,10 +1,8 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-const useBearStore = create((set) => ({
-    search: "",
-    setSearch: (search) => set({ search }),
-    currentCrypto: {},
-    setCurrentCrypto: (currentCrypto) => set({ currentCrypto }),
+const useStore = create(set => ({
+    searchString: '',
+    setSearchString: (newString) => set({ searchString: newString }),
 }));
 
-export default useBearStore;
+export default useStore;

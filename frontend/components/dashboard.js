@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-import { useStore } from '../store'
+import useStore from '../store';
 
 let tvScriptLoadingPromise;
 
@@ -10,21 +10,15 @@ export default function Dashboard() {
     const [cryptos, setCryptos] = useState([]);
     const [crypto, setCrypto] = useState({});
     const onLoadScriptRef = useRef();
+    const searchString = useStore(state => state.searchString);
+
+    console.log(searchString)
 
     async function getCrypto() {
         const response = await axios.get('http://localhost:3000/api/cryptos');
         setCryptos(response.data);
         // TODO: Set the first crypto as default, it's always BTC and a temporary solution.
-        let tab = [];
-        for (let i = 0; i != response.data.length; i++) {
-            tab.push(
-            <div className="border border-gray-900 p-1 my-2">
-                <h1>{response.data[i].name}</h1>
-            </div>
-            )
-        }
         setCrypto(response.data[0]);
-        setCryptos(tab);
     }
 
     useEffect(
@@ -52,7 +46,7 @@ export default function Dashboard() {
                 if (document.getElementById('tradingview_0f7cf') && 'TradingView' in window) {
                     new window.TradingView.widget({
                         autosize: true,
-                        symbol: "BITSTAMP:BTCUSD",
+                        symbol: "BTCUSD",
                         interval: "60",
                         timezone: "Etc/UTC",
                         theme: "light",
@@ -66,6 +60,16 @@ export default function Dashboard() {
             }
         },
         []
+    );
+
+    useEffect(
+        () => {
+            const filteredCryptos = cryptos.filter(crypto => crypto.name.toLowerCase().includes(searchString.toLowerCase()));
+            if (filteredCryptos.length > 0) {
+                setCrypto(filteredCryptos[0]);
+            }
+        },
+        [searchString]
     );
     return (
         <div className="rounded-lg border h-full p-4 m-2 flex flex-row">

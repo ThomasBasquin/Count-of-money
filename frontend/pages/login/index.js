@@ -17,7 +17,6 @@ const Login = () => {
                 email,
                 password
             });
-            console.log(response_crypto.data);
             console.log(response.data);
             setInterval(() => {
                 window.location.href = '/dashboard'
