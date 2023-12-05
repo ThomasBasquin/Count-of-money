@@ -5,6 +5,7 @@ import Dashboard from '../components/dashboard';
 import Spline from '@splinetool/react-spline';
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Link from 'next/link';
 
 const HomePage = () => {
   const root = useRef();
@@ -49,7 +50,7 @@ const HomePage = () => {
           Hello, welcome to Count Of Money. This is a simple app that allows you to track your cryptocurrencies and have lot of statistics about them.
         </p>
         <div className='content mt-12'>
-          <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black hover:animate-bounce'>Dashboard</button>
+          <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black hover:animate-bounce'><Link href="/dashboard">Dashboard</Link></button>
         </div>
       </div>
 
