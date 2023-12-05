@@ -14,15 +14,25 @@ Count of Money est une application web de gestion de crypto-monnaies qui permet 
 - Frontend: React.js
 - API: CoinGecko API pour les données de crypto-monnaies
 
-## Installation
+## Installation pour le développement
 Pour exécuter ce projet localement, suivez ces étapes :
 
 1. Clonez le dépôt :
 ``git clone https://github.com/votreusername/Count-of-Money.git``
 
-2. Installez les dépendances du backend :
+2. Lancer les bases de données :
+``cd Count-of-Money``
+``docker compose up --build``
+
+3. Installez et lancer l'api :
 ``cd Count-of-Money/backend``
 ``npm install``
+``npm run dev``
+
+4. Installer et lancer le frontend :
+``cd Count-of-Money/frontend``
+``npm i``
+``npm run dev``
 
 ## Contribution
 Les contributions sont les bienvenues. Pour contribuer :

@@ -54,6 +54,7 @@ Thumbs.db
 
 # Fichiers de paquets
 *.tgz
+package-lock.json
 /package-lock.json
 /yarn.lock
 
