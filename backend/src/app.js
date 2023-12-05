@@ -9,11 +9,10 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './config/swaggerConfig.js';
 import passport from 'passport';
 import fetchCryptoData from './tasks/fetchCryptoData.js';
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
-
-console.log(process.env.SESSION_SECRET);
 
 await connectDB().catch(err => {
   console.error(err);
@@ -23,6 +22,12 @@ await connectDB().catch(err => {
 // fetchCryptoData();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(
