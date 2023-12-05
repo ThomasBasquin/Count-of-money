@@ -49,7 +49,7 @@ const HomePage = () => {
           Hello, welcome to Count Of Money. This is a simple app that allows you to track your cryptocurrencies and have lot of statistics about them.
         </p>
         <div className='content mt-12'>
-          <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3'>Dashboard</button>
+          <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black hover:animate-bounce'>Dashboard</button>
         </div>
       </div>
 
