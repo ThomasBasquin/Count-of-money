@@ -1,8 +1,12 @@
 "use client"
 import { useState } from 'react';
 import axios from 'axios';
+import { Toaster, toast } from 'sonner'
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 const Login = () => {
+    const { width, height } = useWindowSize()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -13,17 +17,24 @@ const Login = () => {
                 email,
                 password
             });
+
+            const response_crypto = await axios.get('http://localhost:3000/api/cryptos');
+            console.log(response_crypto.data);
             console.log(response.data);
+            toast.success('Vous êtes connecté !')
             // Gérer la réponse ici, comme rediriger l'utilisateur ou afficher un message de succès
         } catch (error) {
             console.error('Erreur de connexion', error);
+            toast.error('Une erreur est survenue')
             // Gérer les erreurs ici, comme afficher un message d'erreur
         }
     };
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900 w-screen h-screen">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+
+            <Toaster position="bottom-center" />
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                     Count Of Money
                 </a>
@@ -61,6 +72,7 @@ const Login = () => {
                 </div>
             </div>
         </section>
+
     );
 }
 
