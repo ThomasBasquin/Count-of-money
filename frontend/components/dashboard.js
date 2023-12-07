@@ -14,9 +14,6 @@ export default function Dashboard() {
     const searchStatus = useStore(state => state.searchStatus);
     const setSearchStatus = useStore(state => state.setSearchStatus);
 
-    console.log(searchString)
-    console.log(searchStatus)
-
     async function getCrypto() {
         const response = await axios.get('http://localhost:3000/api/cryptos');
         console.log(response.data);
@@ -63,7 +60,7 @@ export default function Dashboard() {
                         symbol: symbol,
                         interval: "60",
                         timezone: "Etc/UTC",
-                        theme: "light",
+                        theme: "dark",
                         style: "1",
                         locale: "fr",
                         enable_publishing: false,
@@ -86,19 +83,19 @@ export default function Dashboard() {
         [searchString]
     );
     return (
-        <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-white">
-            <div className="rounded-sm border mr-2 w-1/3 p-4 h-full ">
+        <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+            <div className="rounded-sm border mr-2 w-1/3 p-4 h-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700">
                 <div className="flex flex-col justify-between h-1/4">
                     <div className="flex flex-row w-full items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-bold">{crypto.name}</h1>
-                            <p className="text-xl">{crypto.cmid}</p>
+                            <h1 className="text-2xl font-bold text-white">{crypto.name}</h1>
+                            <p className="text-xl text-white">{crypto.cmid}</p>
                         </div>
                         <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} />
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-lg">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
-                        <p className="text-lg">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
+                        <p className="text-lg text-white">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
+                        <p className="text-lg text-white">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
                     </div>
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-4'>
                     </div>
@@ -107,7 +104,7 @@ export default function Dashboard() {
             <div className='tradingview-widget-container' style={{ height: "100%", width: "100%" }}>
                 <div id='tradingview_0f7cf' style={{ height: "calc(100% - 32px)", width: "100%" }} />
                 <div className="tradingview-widget-copyright">
-                    <a href="https://fr.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Suivre tous les marchés sur TradingView</span></a>
+                    <a href="https://fr.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="white-text">Suivre tous les marchés sur TradingView</span></a>
                 </div>
             </div>
 
