@@ -5,8 +5,8 @@ import Image from 'next/image';
 
 export default function Header() {
     return (
-        <div className="flex items-center justify-center mt-2">
-            <div className="w-11/12 flex justify-between items-center py-1 rounded-lg border-2 bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+        <div className="flex items-center justify-center p-2">
+            <div className="w-full flex justify-between items-center py-1 rounded-lg border-2 bg-gradient-to-r from-gray-700 via-gray-900 to-black">
                 <Image src="/icon.png" width={90} height={90}/>
                 <div className="flex items-center justify-end w-full">
                     <div className="md:inline-flex hidden w-full">

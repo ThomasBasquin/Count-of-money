@@ -25,7 +25,7 @@ const HomePage = () => {
       let ctx = gsap.context(() => {
         gsap.to(".title", {
           duration: 1,
-          y: 40,
+          y: 50,
           ease: "elastic"
         });
         gsap.to(".content", {
@@ -41,16 +41,29 @@ const HomePage = () => {
   }
   return (
     <div className='flex flex-col w-screen h-screen bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 items-center justify-around' ref={root}>
-      <h1 className="text-4xl font-bold text-grey-800 text-white text-center title">Count Of Money</h1>
-      <div className='coin h-fit w-fit'>
-        <Spline scene="https://draft.spline.design/SC5GjCTuXT3BkWH0/scene.splinecode" />
-      </div>
-      <div className='w-2/3 flex flex-col items-center justify-center'>
-        <p className='text-white font-semibold text-center content'>
-          Hello, welcome to Count Of Money. This is a simple app that allows you to track your cryptocurrencies and have lot of statistics about them.
-        </p>
-        <div className='content mt-12'>
-          <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black animate-bounce hover:animate-none'><Link href="/dashboard">Dashboard</Link></button>
+      <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-500 via-blue-300 to-blue-200 inline-block text-transparent bg-clip-text text-center title">Count Of Money</h1>
+      <div className='w-screen flex-col items-center justify-center'>
+        <div className='flex flex-row justify-center items-center w-full'>
+          <p className='coin text-4xl font-semibold w-2/5 text-center bg-gradient-to-r from-blue-500 via-blue-300 to-blue-200 inline-block text-transparent bg-clip-text invisible md:visible subpixel-antialiased'>
+            Track your crypto
+          </p>
+          <div className='coin h-fit w-fit'>
+            <Spline scene="https://draft.spline.design/SC5GjCTuXT3BkWH0/scene.splinecode" />
+          </div>
+          <p className='coin text-4xl font-semibold w-2/5 text-center bg-gradient-to-r from-blue-500 via-blue-300 to-blue-200 inline-block text-transparent bg-clip-text invisible md:visible subpixel-antialiased'>
+            ...have lot of statistics
+          </p>
+        </div>
+
+        <div className='w-full flex flex-col items-center justify-center'>
+          <div className='w-2/3'>
+            <p className='text-white font-semibold text-center content'>
+              Hello, welcome to Count Of Money. This is a simple app that allows you to track your cryptocurrencies and have lot of statistics about them.
+            </p>
+          </div>
+          <div className='content mt-12'>
+            <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black animate-bounce hover:animate-none'><Link href="/dashboard">Dashboard</Link></button>
+          </div>
         </div>
       </div>
     </div>
