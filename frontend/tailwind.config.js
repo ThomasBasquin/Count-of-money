@@ -17,6 +17,8 @@ module.exports = {
       white: colors.white,
       gray: colors.gray,
       blue: colors.blue,
+      green: colors.green,
+      purple: colors.purple,
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
@@ -36,6 +38,8 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animated')
+  ],
 }
 

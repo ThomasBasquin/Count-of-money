@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import useStore from '../store';
@@ -11,11 +11,15 @@ export default function Dashboard() {
     const [crypto, setCrypto] = useState({});
     const onLoadScriptRef = useRef();
     const searchString = useStore(state => state.searchString);
+    const searchStatus = useStore(state => state.searchStatus);
+    const setSearchStatus = useStore(state => state.setSearchStatus);
 
     console.log(searchString)
+    console.log(searchStatus)
 
     async function getCrypto() {
         const response = await axios.get('http://localhost:3000/api/cryptos');
+        console.log(response.data);
         setCryptos(response.data);
         // TODO: Set the first crypto as default, it's always BTC and a temporary solution.
         setCrypto(response.data[0]);
@@ -24,6 +28,12 @@ export default function Dashboard() {
     useEffect(
         () => {
             getCrypto();
+            setSearchStatus(!searchStatus);
+        }
+        , []);
+
+    useEffect(
+        () => {
             onLoadScriptRef.current = createWidget;
 
             if (!tvScriptLoadingPromise) {
@@ -43,10 +53,14 @@ export default function Dashboard() {
             return () => onLoadScriptRef.current = null;
 
             function createWidget() {
+                let symbol = `${crypto.cmid}USD`;
+                if (crypto.cmid === undefined) {
+                    symbol = "BTCUSD";
+                }
                 if (document.getElementById('tradingview_0f7cf') && 'TradingView' in window) {
                     new window.TradingView.widget({
                         autosize: true,
-                        symbol: "BTCUSD",
+                        symbol: symbol,
                         interval: "60",
                         timezone: "Etc/UTC",
                         theme: "light",
@@ -59,7 +73,7 @@ export default function Dashboard() {
                 }
             }
         },
-        []
+        [searchStatus]
     );
 
     useEffect(
@@ -72,8 +86,8 @@ export default function Dashboard() {
         [searchString]
     );
     return (
-        <div className="rounded-lg border h-full p-4 m-2 flex flex-row">
-            <div className="rounded-sm border mr-2 w-1/3 p-4 h-full">
+        <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-white">
+            <div className="rounded-sm border mr-2 w-1/3 p-4 h-full ">
                 <div className="flex flex-col justify-between h-1/4">
                     <div className="flex flex-row w-full items-center justify-between">
                         <div>
@@ -83,8 +97,10 @@ export default function Dashboard() {
                         <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} />
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-xl">Current Price : {crypto.currentPrice} €</p>
-                        <p className="text-xl">Price change last 7d: {crypto.priceChangePercentage7d} %</p>
+                        <p className="text-lg">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
+                        <p className="text-lg">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
+                    </div>
+                    <div className='w-full border-2 border-gray-500 rounded-lg mt-4'>
                     </div>
                 </div>
             </div>
