@@ -86,16 +86,18 @@ export default function Dashboard() {
         <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-gradient-to-r from-gray-700 via-gray-900 to-black">
             <div className="rounded-sm border mr-2 w-1/3 p-4 h-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700">
                 <div className="flex flex-col justify-between h-1/4">
-                    <div className="flex flex-row w-full items-center justify-between">
+                    <div className="flex flex-col sm:flex-row w-full items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-bold text-white">{crypto.name}</h1>
-                            <p className="text-xl text-white">{crypto.cmid}</p>
+                            <h1 className="text-xl md:text-2xl font-bold text-white">{crypto.name}</h1>
+                            <p className="text-lg md:text-xl text-white">{crypto.cmid}</p>
                         </div>
-                        <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} />
+                        <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} className='mt-2 sm:mt-0'/>
+                    </div>
+                    <div className='w-full border-2 border-gray-500 rounded-lg mt-2 mb-2 md:invisible'>
                     </div>
                     <div className="flex flex-col">
-                        <p className="text-lg text-white">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
-                        <p className="text-lg text-white">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
+                        <p className="text-md md:text-lg text-white">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
+                        <p className="text-md md:text-lg text-white">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
                     </div>
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-4'>
                     </div>

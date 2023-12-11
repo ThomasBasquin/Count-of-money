@@ -62,7 +62,9 @@ const HomePage = () => {
             </p>
           </div>
           <div className='content mt-12'>
-            <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black animate-bounce hover:animate-none'><Link href="/dashboard">Dashboard</Link></button>
+            <Link href="/dashboard">
+              <button className='bg-black border-2 border-solid border-white rounded-lg text-white p-3 hover:bg-white hover:text-black animate-bounce hover:animate-none'>Dashboard</button>
+            </Link>
           </div>
         </div>
       </div>
