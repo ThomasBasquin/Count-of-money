@@ -19,7 +19,7 @@ export default function Header() {
 
     return (
         <div className="flex flex-col items-center justify-center p-2">
-            <div className="w-full flex justify-between items-center py-1 rounded-lg border-2 bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+            <div className="w-full flex justify-between items-center py-1 rounded-lg border border-gray-500 bg-gradient-to-r from-gray-700 via-gray-900 to-black">
                 <Link href="/dashboard">
                     <Image src="/icon.png" width={90} height={90} />
                 </Link>
