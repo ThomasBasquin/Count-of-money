@@ -28,8 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          eval "$(ssh-agent -s)"
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_HOST }} "docker stack deploy -c ~/Count-of-money/compose.yaml Count-of-money"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "docker stack deploy -c ~/Count-of-money/compose.yaml Count-of-money"
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
