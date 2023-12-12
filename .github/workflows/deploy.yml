@@ -10,14 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debugging
-        run: |
-          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
-          echo -e "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          ls -la
-          cat private_key.pem
-
-
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -36,9 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          eval "$(ssh-agent -s)"
-          ssh-add private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "docker stack deploy -c ~/Count-of-money/compose.yaml Count-of-money"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }} "docker stack deploy -c ~/money-count/compose.yaml money-count"
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
