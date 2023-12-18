@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  front:
+    build: ./frontend
+    ports:
+      - '3001:3001'
+    depends_on:
+      - api
+    networks:
+      - app-network
   redis:
     image: 'redis:alpine'
     command: redis-server --appendonly yes
