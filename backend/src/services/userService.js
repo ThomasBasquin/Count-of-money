@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import Crypto from '../models/crypto.model.js';
 import bcrypt from 'bcryptjs';
 
 const userService = {
@@ -53,6 +54,65 @@ const userService = {
       user.pressReviewKeywords = updateData.pressReviewKeywords;
 
     await user.save();
+    return user;
+  },
+
+  addFavorite: async (userId, cryptoId) => {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error('Aucun utilisateur trouvé.');
+    }
+
+    const crypto = await Crypto.findOne({ cmid: cryptoId });
+    if (!crypto) {
+      throw new Error('Aucune crypto trouvée.');
+    }
+
+    const cryptoIndex = user.cryptoCurrencies.indexOf(crypto._id);
+
+    if (cryptoIndex !== -1) {
+      throw new Error('Cette crypto est déjà dans vos favoris.');
+    }
+
+    user.cryptoCurrencies.push(crypto._id);
+
+    await user.save();
+    return user;
+  },
+
+  removeFavorite: async (userId, cryptoId) => {
+    const user = await User.findById(userId);
+    const crypto = await Crypto.findOne({ cmid: cryptoId });
+
+    if (!user) {
+      throw new Error('Aucun utilisateur trouvé.');
+    }
+
+    if (!crypto) {
+      throw new Error('Crypto-monnaie non trouvée.');
+    }
+
+    const cryptoIndex = user.cryptoCurrencies.findIndex(
+      id => id.toString() === crypto._id.toString()
+    );
+
+    if (cryptoIndex === -1) {
+      throw new Error("Cette crypto n'est pas dans vos favoris.");
+    }
+
+    user.cryptoCurrencies.splice(cryptoIndex, 1);
+
+    await user.save();
+    return user;
+  },
+
+  getFavorites: async userId => {
+    const user = await User.findById(userId).populate('cryptoCurrencies');
+
+    if (!user) {
+      throw new Error('Aucun utilisateur trouvé.');
+    }
+
     return user;
   },
 };
