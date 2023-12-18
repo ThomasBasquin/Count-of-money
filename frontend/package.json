@@ -15,12 +15,18 @@
     "next": "latest",
     "postcss": "^8.4.31",
     "react": "18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
+    "react-use": "^17.4.2",
     "sonner": "^1.2.4",
     "tailwindcss": "^3.3.5",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "zustand": "^4.4.7"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "tailwindcss-animated": "^1.0.1"
   }
 }
