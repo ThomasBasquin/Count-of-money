@@ -20,8 +20,8 @@ services:
     image: 'mongo:4.4.4'
     restart: always
     environment:
-    - MONGO_INITDB_ROOT_USERNAME=admin
-    - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - '27017:27017'
     volumes:
@@ -33,9 +33,9 @@ services:
     ports:
       - '8081:8081'
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
-      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_MONGODB_SERVER=${ME_CONFIG_MONGODB_SERVER}
     depends_on:
       - mongo
 
@@ -44,9 +44,9 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - SESSION_SECRET=16b99969d371dfa661379a943e7de22455d993814399e045dda3307506865c117fa9c6a636500437021520a3255aa6e1b46567927ac1d4280c925e5f64fd9859
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
       - redis
 
