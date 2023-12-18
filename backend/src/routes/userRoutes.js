@@ -281,28 +281,28 @@ router.put('/profile', isAuth, validateUser, userController.updateProfile);
 /**
  * @swagger
  * /user/favorites:
- *  get:
- *   summary: Récupère les favoris de l'utilisateur
- *  tags: [Users]
- * security:
- *  - cookieAuth: []
- * responses:
- *  200:
- *  description: Favoris récupérés avec succès.
- * content:
- * application/json:
- * schema:
- * type: object
- * properties:
- * favorites:
- * type: array
- * items:
- * type: string
- * description: Liste des symboles des crypto-monnaies favorites.
- * 401:
- * description: Utilisateur non authentifié ou token invalide.
- * 500:
- * description: Erreur interne du serveur.
+ *   get:
+ *     summary: Récupère les favoris de l'utilisateur
+ *     tags: [Users]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Favoris récupérés avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 favorites:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                     description: Liste des symboles des crypto-monnaies favorites.
+ *       401:
+ *         description: Utilisateur non authentifié ou token invalide.
+ *       500:
+ *         description: Erreur interne du serveur.
  */
 
 router.get('/favorites', isAuth, userController.getFavorites);
