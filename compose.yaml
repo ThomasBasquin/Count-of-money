@@ -1,13 +1,15 @@
 version: '3.8'
 
 services:
-  money-count-front:
+  front:
     image: totomadme/money-count-front:latest
-    build: ./frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - '3001:3001'
     depends_on:
-      - money-count-api
+      - api
 
   redis:
     image: 'redis:alpine'
@@ -28,9 +30,11 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  money-count-api:
+  api:
     image: totomadme/money-count-api:latest
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     environment:
