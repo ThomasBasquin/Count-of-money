@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   front:
-    image: totomadme/money-count-front:latest
+    image: totomadne/money-count-front:latest
     build: 
       context: ./frontend
       dockerfile: Dockerfile
@@ -31,7 +31,7 @@ services:
       - mongo-data:/data/db
 
   api:
-    image: totomadme/money-count-api:latest
+    image: totomadne/money-count-api:latest
     build: 
       context: ./backend
       dockerfile: Dockerfile
