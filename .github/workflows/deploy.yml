@@ -22,8 +22,8 @@ jobs:
       - name: Build and push Docker images
         run: |
           # docker compose build
-          docker image -build -t totomadme/money-count-front:latest -f ./frontend/Dockerfile
-          docker image -build -t totomadme/money-count-api:latest -f ./backend/Dockerfile
+          docker image --build -t totomadme/money-count-front:latest -f ./frontend/Dockerfile
+          docker image --build -t totomadme/money-count-api:latest -f ./backend/Dockerfile
           # docker compose push
           docker push docker.io/totomadme/money-count-front:latest
           docker push docker.io/totomadme/money-count-api:latest
