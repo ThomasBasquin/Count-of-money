@@ -21,8 +21,8 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker-compose build
-          docker-compose push
+          compose build
+          compose push
 
       - name: Deploy to Docker Swarm
         run: |
