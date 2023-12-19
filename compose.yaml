@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   money-count-front:
+    image: totomadme/money-count-front:latest
     build: ./frontend
     ports:
       - '3001:3001'
@@ -28,6 +29,7 @@ services:
       - mongo-data:/data/db
 
   money-count-api:
+    image: totomadme/money-count-api:latest
     build: ./backend
     ports:
       - '3000:3000'
