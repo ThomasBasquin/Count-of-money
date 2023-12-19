@@ -6,7 +6,7 @@ services:
     ports:
       - '3001:3001'
     depends_on:
-      - api
+      - money-count-api
 
   redis:
     image: 'redis:alpine'
