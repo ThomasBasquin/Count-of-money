@@ -1,20 +1,15 @@
-# Utilisez l'image de node.js
-FROM node:14-alpine
+FROM node
 
-# Définissez le répertoire de travail
 WORKDIR /usr/src/app
 
-# Copiez les fichiers de package.json et package-lock.json pour installer les dépendances
 COPY package*.json ./
 
-# Installez les dépendances
 RUN npm install
 
-# Copiez le reste des fichiers de l'application
 COPY . .
 
-# Exposez le port sur lequel l'application fonctionnera
+RUN npm run build
+
 EXPOSE 3001
 
-# Commande pour lancer l'application Next.js
 CMD ["npm", "start"]
