@@ -3,16 +3,19 @@ import React, { use, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import useStore from '../store';
+import { toast } from 'sonner';
 
 let tvScriptLoadingPromise;
 
 export default function Dashboard() {
     const [cryptos, setCryptos] = useState([]);
     const [crypto, setCrypto] = useState({});
+    const [favorites, setFavorites] = useState([]);
     const onLoadScriptRef = useRef();
     const searchString = useStore(state => state.searchString);
     const searchStatus = useStore(state => state.searchStatus);
     const setSearchStatus = useStore(state => state.setSearchStatus);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     async function getCrypto() {
         const response = await axios.get('http://localhost:3000/api/cryptos');
@@ -22,12 +25,74 @@ export default function Dashboard() {
         setCrypto(response.data[0]);
     }
 
+    async function getFavorites() {
+        const response = await axios.get('http://localhost:3000/api/users/favorites', {
+            withCredentials: true
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res.data);
+                setFavorites(res.data.favorites);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    async function addToFavorites(cmid) {
+        if (isFavorite) {
+            const response = await axios.post('http://localhost:3000/api/users/favorites/remove', {
+                "cmid": cmid
+            }, {
+                withCredentials: true
+            }).then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    getFavorites();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        } else {
+            const response = await axios.post('http://localhost:3000/api/users/favorites/add', {
+                "cmid": cmid
+            }, {
+                withCredentials: true
+            }).then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data);
+                    getFavorites();
+                }
+            }).catch((err) => {
+                if (err.response.status === 401) {
+                    toast.error('You must be logged in to add a favorite.');
+                }
+
+                console.log(err);
+            });
+        }
+    }
+
     useEffect(
         () => {
+            getFavorites();
             getCrypto();
             setSearchStatus(!searchStatus);
         }
         , []);
+
+    useEffect(
+        () => {
+            setIsFavorite(false);
+            console.log(favorites)
+            favorites.forEach(fav => {
+                if (fav.cmid === crypto.cmid) {
+                    setIsFavorite(true);
+                }
+            });
+            console.log(isFavorite);
+        }
+        , [crypto, favorites]
+    );
 
     useEffect(
         () => {
@@ -91,13 +156,19 @@ export default function Dashboard() {
                             <h1 className="text-xl md:text-2xl font-bold text-white">{crypto.name}</h1>
                             <p className="text-lg md:text-xl text-white">{crypto.cmid}</p>
                         </div>
-                        <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} className='mt-2 sm:mt-0'/>
+                        <Image src={crypto.imageUrl} alt={crypto.name} width={50} height={50} className='mt-2 sm:mt-0' />
                     </div>
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-2 mb-2 md:invisible'>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-md md:text-lg text-white">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
-                        <p className="text-md md:text-lg text-white">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
+                    <div className="flex flex-col md:flex-row items-center justify-center md:justify-between">
+                        <div className="flex flex-col">
+                            <p className="text-md md:text-lg text-white">Current Price : {crypto.currentPrice?.toFixed(2)} €</p>
+                            <p className="text-md md:text-lg text-white">Price change last 7d: {crypto.priceChangePercentage7d?.toFixed(2)} %</p>
+                        </div>
+                        <button onClick={() => addToFavorites(crypto.cmid)}>
+                            {isFavorite ? (<img className='animate-bounce' width="40" height="40" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1" />) : (<img width="40" height="40" src="https://img.icons8.com/ios/50/star--v1.png" alt="star--v1" />)
+                            }
+                        </button>
                     </div>
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-4'>
                     </div>

@@ -4,11 +4,16 @@ import axios from 'axios';
 import { Toaster, toast } from 'sonner'
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
+import { setCookie } from "cookies-next";
+import { useInterval } from 'react-use';
 
 const Login = () => {
-    const { width, height } = useWindowSize()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const displayJoke = () => {
+        toast.success('You are fucked, I cannot help you !')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,13 +21,16 @@ const Login = () => {
             const response = await axios.post('http://localhost:3000/api/users/login', {
                 email,
                 password
+            }, {
+                withCredentials: true
             });
+
             console.log(response.data);
-            setInterval(() => {
-                window.location.href = '/dashboard'
-            }, 3000)
-            toast.success('Vous êtes connecté !')
+            toast.success('Vous êtes connecté ! Redirection en cours ...')
             // Gérer la réponse ici, comme rediriger l'utilisateur ou afficher un message de succès
+            setTimeout(() => {
+                window.location.href = '/dashboard'
+            }, 2000)
         } catch (error) {
             console.error('Erreur de connexion', error);
             toast.error('Une erreur est survenue')
@@ -61,7 +69,7 @@ const Login = () => {
                                         <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                                     </div>
                                 </div>
-                                <a href="#" className="text-sm font-medium text-white hover:underline dark:text-primary-500">Forgot password?</a>
+                                <a href="#" onClick={() => displayJoke()} className="text-sm font-medium text-white hover:underline dark:text-primary-500">Forgot password?</a>
                             </div>
                             <button type="submit" className="w-full text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Sign in</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">

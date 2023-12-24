@@ -5,6 +5,8 @@ const useStore = create(set => ({
     setSearchString: (newString) => set({ searchString: newString }),
     searchStatus: false,
     setSearchStatus: (newStatus) => set({ searchStatus: newStatus }),
+    user: {},
+    setUser: (newUser) => set({ user: newUser }),
 }));
 
 export default useStore;

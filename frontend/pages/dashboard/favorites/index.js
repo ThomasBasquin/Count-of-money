@@ -17,7 +17,7 @@ const HomePage = () => {
         let tabToFill = [];
         for (let i = 0; i != tabToSearchIn.length; i++) {
             tabToFill.push(
-            <div className=" px-3 py-1 m-2 rounded-full bg-gradient-to-r from-gray-700 via-gray-900 to-black border border-gray-500">
+            <div className=" px-3 py-1 m-2 rounded-full bg-gradient-to-r from-gray-700 via-gray-900 to-black border border-gray-500" key={i}>
                 <div className='grid grid-cols-6'>
                     <div className='grid grid-cols-2 my-auto'>
                         <div className='mx-3 w-fit m-auto'>
@@ -149,11 +149,19 @@ const HomePage = () => {
     }
 
     async function getCrypto() {
-        const response = await axios.get('http://localhost:3000/api/cryptos');
-        setData(response.data);
-        // TODO: Set the first crypto as default, it's always BTC and a temporary solution.
-        setCryptos(fillPage(response.data));
-        console.log(response.data)
+        const response = await axios.get('http://localhost:3000/api/users/favorites', {
+            withCredentials: true
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                window.location.href = '/login';
+            }
+            console.log(err);
+        }
+        );
+
+
+        setData(response.data?.favorites);
+        setCryptos(fillPage(response.data.favorites));
     }
 
     useEffect(() => {
@@ -163,8 +171,7 @@ const HomePage = () => {
     useEffect(
         () => {
             const filteredCryptos = data.filter(crypto => crypto.name.toLowerCase().includes(searchString.toLowerCase()));
-            const filteredCryptos2 = data.filter(crypto => crypto.cmid.toLowerCase().includes(searchString.toLowerCase()));
-            setCryptos(fillPage(filteredCryptos2.concat(filteredCryptos)));
+            setCryptos(fillPage(filteredCryptos));
         },
         [searchString]
     );

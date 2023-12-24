@@ -389,7 +389,7 @@ router.post('/favorites/add', isAuth, userController.addFavorite);
  *         description: Erreur interne du serveur.
  */
 
-router.delete('/favorites/remove', isAuth, userController.removeFavorite);
+router.post('/favorites/remove', isAuth, userController.removeFavorite);
 
 /**
  * @swagger
