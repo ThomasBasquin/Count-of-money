@@ -1,4 +1,5 @@
 import Crypto from '../models/crypto.model.js';
+import CryptoHistory from '../models/cryptoHistory.model.js';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -58,12 +59,30 @@ const cryptoService = {
         throw new Error('Période spécifiée invalide');
     }
 
-    const url = `https://api.coingecko.com/api/v3/coins/${cmid}/market_chart/range?vs_currency=eur&from=${from}&to=${to}`;
+    const history = await CryptoHistory.findOne({ cmid, period });
+    const currentTime = new Date();
 
+    const elapsedTime = history ? currentTime - history.lastUpdated : Infinity;
+    const maxDuration = period === 'minute' ? 5 * 60000 : 60 * 60000;
+
+    if (history && elapsedTime < maxDuration) {
+      console.log('Récupération des données depuis la base de données');
+      return history.data;
+    }
+
+    const url = `https://api.coingecko.com/api/v3/coins/${cmid}/market_chart/range?vs_currency=eur&from=${from}&to=${to}`;
     try {
       const response = await axios.get(url);
       const data = response.data;
-      return processData(data);
+      const processedData = processData(data);
+
+      await CryptoHistory.findOneAndUpdate(
+        { cmid, period },
+        { data: processedData, lastUpdated: new Date() },
+        { upsert: true }
+      );
+
+      return processedData;
     } catch (error) {
       console.error(
         'Erreur lors de la récupération des données historiques:',
