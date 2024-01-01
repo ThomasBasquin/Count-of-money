@@ -19,15 +19,16 @@ const cryptoController = {
   },
   getCryptoHistory: async (req, res) => {
     try {
-      const crypto = await cryptoService.getCryptoHistory(
+      const cryptoHistory = await cryptoService.getCryptoHistory(
         req.params.cmid,
-        req.query.period
+        req.params.period
       );
-      res.status(200).json(crypto);
+      res.status(200).json(cryptoHistory);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   },
+
   addCrypto: async (req, res) => {
     try {
       const crypto = await cryptoService.addCrypto(req.body);

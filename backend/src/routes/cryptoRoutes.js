@@ -10,7 +10,7 @@ const router = express.Router();
  * /cryptos/{cmid}/history/{period}:
  *   get:
  *     summary: Get Price History of a Specific Cryptocurrency
- *     description: Retrieves the price history of a specific cryptocurrency based on its ID and a specified period.
+ *     description: Retrieves the price history of a specific cryptocurrency based on its ID for a specified period. The periods can be 'daily' (last 90 days), 'hourly' (last 48 hours), or 'minute' (last 2 hours).
  *     tags:
  *       - Cryptos
  *     security:
@@ -18,19 +18,37 @@ const router = express.Router();
  *     parameters:
  *       - name: cmid
  *         in: path
- *         description: Cryptocurrency ID.
+ *         description: Cryptocurrency ID (e.g., 'bitcoin').
  *         required: true
  *         schema:
  *           type: string
  *       - name: period
  *         in: path
- *         description: Time period for the price history (e.g., 'daily', 'weekly', 'monthly').
+ *         description: Time period for the price history. Valid periods are 'daily', 'hourly', or 'minute'.
  *         required: true
  *         schema:
  *           type: string
+ *           enum: [daily, hourly, minute]
  *     responses:
  *       200:
- *         description: Successful retrieval of cryptocurrency price history.
+ *         description: Successful retrieval of cryptocurrency price history, including opening, highest, lowest, and closing prices for the specified period.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 opening:
+ *                   type: number
+ *                   description: Opening price for the period.
+ *                 highest:
+ *                   type: number
+ *                   description: Highest price during the period.
+ *                 lowest:
+ *                   type: number
+ *                   description: Lowest price during the period.
+ *                 closing:
+ *                   type: number
+ *                   description: Closing price for the period.
  *       401:
  *         description: User is not authenticated.
  *       404:
