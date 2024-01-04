@@ -19,7 +19,7 @@ await connectDB().catch(err => {
   process.exit(1);
 });
 
-// fetchCryptoData();
+fetchCryptoData();
 
 app.use(express.json());
 app.use(
@@ -46,14 +46,5 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', routes);
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
 
 export default app;

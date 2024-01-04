@@ -58,7 +58,7 @@ const router = express.Router();
  *     deprecated: false
  */
 
-router.get('/:cmid/history/:period', isAuth, cryptoController.getCryptoHistory);
+router.get('/:cmid/history/:period', cryptoController.getCryptoHistory);
 
 /**
  * @swagger

@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Le mot de passe est requis'],
+      required: [false, 'Le mot de passe est requis'],
       minLength: [6, 'Le mot de passe doit avoir au moins 6 caractères'],
     },
     email: {
@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       match: [/.+\@.+\..+/, 'Veuillez entrer une adresse email valide'],
+    },
+    googleId: {
+      type: String,
+      required: [false],
+      unique: true
     },
     defaultCurrency: {
       type: String,

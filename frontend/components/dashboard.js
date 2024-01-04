@@ -4,6 +4,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import useStore from '../store';
 import { toast } from 'sonner';
+import { Tooltip } from 'react-tooltip'
 
 let tvScriptLoadingPromise;
 
@@ -16,6 +17,8 @@ export default function Dashboard() {
     const searchStatus = useStore(state => state.searchStatus);
     const setSearchStatus = useStore(state => state.setSearchStatus);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [history, setHistory] = useState({});
+    const [period, setPeriod] = useState("");
 
     async function getCrypto() {
         const response = await axios.get('http://localhost:3000/api/cryptos');
@@ -32,6 +35,26 @@ export default function Dashboard() {
             if (res.status === 200) {
                 console.log(res.data);
                 setFavorites(res.data.favorites);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    async function getHistory(cmid, temp) {
+        if (temp === "") {
+            temp = "daily"
+        }
+        if (cmid === undefined) {
+            return
+        }
+        console.log(temp)
+        const response = await axios.get('http://localhost:3000/api/cryptos/' + cmid + '/history/' + temp, {
+            withCredentials: true
+        }).then((res) => {
+            if (res.status === 200) {
+                console.log(res.data);
+                setHistory(res.data)
             }
         }).catch((err) => {
             console.log(err);
@@ -82,20 +105,26 @@ export default function Dashboard() {
 
     useEffect(
         () => {
+            const select = document.getElementById("periods")
+
+            console.log(select.value);
             setIsFavorite(false);
             console.log(favorites)
-            favorites.forEach(fav => {
+            setPeriod(select.value.toLowerCase())
+            getHistory(crypto?.name?.toLowerCase(), select.value.toLowerCase())
+            favorites?.forEach(fav => {
                 if (fav.cmid === crypto.cmid) {
                     setIsFavorite(true);
                 }
             });
             console.log(isFavorite);
         }
-        , [crypto, favorites]
+        , [crypto, favorites, period]
     );
 
     useEffect(
         () => {
+            getHistory(crypto?.name?.toLowerCase(), period)
             onLoadScriptRef.current = createWidget;
 
             if (!tvScriptLoadingPromise) {
@@ -170,8 +199,37 @@ export default function Dashboard() {
                             }
                         </button>
                     </div>
-                    <div className='w-full border-2 border-gray-500 rounded-lg mt-4'>
+                    <div className='w-full border-2 border-gray-500 rounded-lg mt-4'></div>
+                    <div className='mt-2'>
+                        <label for="periods" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an period</label>
+                        <select id="periods" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            onChange={(e) => {
+                                getHistory(crypto?.name?.toLowerCase(), e.target.value?.toLowerCase())
+                            }
+                            }>
+                            <option value="Daily" selected>Daily</option>
+                            <option value="Hourly">Hourly</option>
+                            <option value="Minute">Minute</option>
+                        </select>
                     </div>
+
+                    <div className='border-2 rounded-lg mt-2 flex items-cent justify-center'>
+                        <div className='w-4/5 text-sm font-medium text-gray-900 dark:text-white flex flex-row justify-around' data-tooltip-id="tooltip-default" data-tooltip-content="Opening and ending values">
+                            {history?.opening?.toFixed(2)} <img width="16" height="16" src="https://img.icons8.com/puffy/32/arrow.png" alt="arrow" /> {history.closing?.toFixed(2)}
+                        </div>
+                    </div>
+
+                    <div className='text-white font-bold mb-2 border-2 rounded-lg mt-2 w-full flex flex-col md:flex-row items-center justify-around' data-tooltip-id="tooltip-default" data-tooltip-content="Highest and lowest values">
+                        <div className='w-4/5 flex flex-col md:flex-row items-center justify-around'>
+                            <h1 className='text-green-500'>{history?.highest?.toFixed(2)} € ↑</h1>
+                            <h1 className=''>-</h1>
+                            <h1 className='text-red-500'>{history?.lowest?.toFixed(2)} € ↓</h1>
+                        </div>
+                    </div>
+
+                    <Tooltip id="tooltip-default" />
+
+                    <div className='w-full border-2 border-gray-500 rounded-lg mt-4'></div>
                 </div>
             </div>
             <div className='tradingview-widget-container' style={{ height: "100%", width: "100%" }}>
