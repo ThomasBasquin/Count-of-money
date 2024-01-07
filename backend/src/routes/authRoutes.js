@@ -1,8 +1,12 @@
 import express from 'express';
 import { isAuth, isNotAuth } from '../middleware/authMiddleware.js';
-import passport from 'passport';
+import passport from "../config/passport.js"
+import session from 'express-session';
 
 const router = express.Router();
+
+router.use(passport.initialize());
+router.use(passport.session());
 
 /**
  * @swagger
@@ -21,9 +25,9 @@ const router = express.Router();
  */
 
 router.get(
-  '/google',
+  '/auth/google',
   isNotAuth,
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+  passport.authenticate('google', { scope: ['email', 'profile'] })
 );
 
 /**
@@ -53,11 +57,23 @@ router.get(
 
 router.get(
   '/google/callback',
-  isNotAuth,
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  isNotAuth, function (req, res, next) {
+    passport.authenticate('google', function (err, user) {
+      req.session.user = user
+      req.session.save()
+      console.log(req.session.user)
+      next()
+    })(req, res, next);
+  },
   (req, res) => {
-    res.redirect('/');
+    res.redirect('http://localhost:3001/dashboard');
   }
 );
+
+// Logout route
+router.get('/oauth/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 export default router;

@@ -46,14 +46,5 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', routes);
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
 
 export default app;
