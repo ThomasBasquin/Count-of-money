@@ -5,6 +5,7 @@ import Image from 'next/image';
 import useStore from '../store';
 import { toast } from 'sonner';
 import { Tooltip } from 'react-tooltip'
+import Articles from './articles';
 
 let tvScriptLoadingPromise;
 
@@ -111,7 +112,7 @@ export default function Dashboard() {
             setIsFavorite(false);
             console.log(favorites)
             setPeriod(select.value.toLowerCase())
-            getHistory(crypto?.name?.toLowerCase(), select.value.toLowerCase())
+            getHistory(crypto?.coingeckoId?.toLowerCase(), select.value.toLowerCase())
             favorites?.forEach(fav => {
                 if (fav.cmid === crypto.cmid) {
                     setIsFavorite(true);
@@ -124,7 +125,7 @@ export default function Dashboard() {
 
     useEffect(
         () => {
-            getHistory(crypto?.name?.toLowerCase(), period)
+            getHistory(crypto?.coingeckoId?.toLowerCase(), period)
             onLoadScriptRef.current = createWidget;
 
             if (!tvScriptLoadingPromise) {
@@ -177,9 +178,9 @@ export default function Dashboard() {
         [searchString]
     );
     return (
-        <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-gradient-to-r from-gray-700 via-gray-900 to-black">
+        <div className="rounded-lg border h-full p-4 m-2 flex flex-row bg-gradient-to-r from-gray-700 via-gray-900 to-black overflow-y-auto">
             <div className="rounded-sm border mr-2 w-1/3 p-4 h-full bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700">
-                <div className="flex flex-col justify-between h-1/4">
+                <div className="flex flex-col justify-start h-full">
                     <div className="flex flex-col sm:flex-row w-full items-center justify-between">
                         <div>
                             <h1 className="text-xl md:text-2xl font-bold text-white">{crypto.name}</h1>
@@ -201,13 +202,13 @@ export default function Dashboard() {
                     </div>
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-4'></div>
                     <div className='mt-2'>
-                        <label for="periods" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an period</label>
-                        <select id="periods" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        <label htmlFor="periods" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an period</label>
+                        <select id="periods" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             onChange={(e) => {
-                                getHistory(crypto?.name?.toLowerCase(), e.target.value?.toLowerCase())
+                                getHistory(crypto?.coingeckoId?.toLowerCase(), e.target.value?.toLowerCase())
                             }
                             }>
-                            <option value="Daily" selected>Daily</option>
+                            <option defaultValue="Daily">Daily</option>
                             <option value="Hourly">Hourly</option>
                             <option value="Minute">Minute</option>
                         </select>
@@ -230,6 +231,9 @@ export default function Dashboard() {
                     <Tooltip id="tooltip-default" />
 
                     <div className='w-full border-2 border-gray-500 rounded-lg mt-4'></div>
+                    <div className='h-fit overflow-y-auto'>
+                        <Articles />
+                    </div>
                 </div>
             </div>
             <div className='tradingview-widget-container' style={{ height: "100%", width: "100%" }}>

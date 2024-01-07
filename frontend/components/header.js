@@ -74,7 +74,8 @@ export default function Header() {
                         <SearchBar />
                     </div>
                     <div className="flex flex-row items-center mr-4">
-                        <Link href="/dashboard/list" className="text-jumbo-500 hover:text-grey-600 px-4">Cryptos</Link>
+                        <Link href="/dashboard/list" className="text-jumbo-500 hover:text-blue-800 px-4">Cryptos</Link>
+                        <Link href="/dashboard/articles" className="text-jumbo-500 hover:text-blue-800 mr-4">News</Link>
                         <button id="dropdownHoverButton" onClick={toggle} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> {user.username}<svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                         </svg>
@@ -83,9 +84,6 @@ export default function Header() {
                             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200 w-full" aria-labelledby="dropdownHoverButton">
                                 <li>
                                     <Link href="/dashboard/favorites" className="w-full block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your Crypto</Link>
-                                </li>
-                                <li>
-                                    <a href="#" className="w-full block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
                                 </li>
                                 <li>
                                     <a onClick={() => Logout()} className="w-full block px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
