@@ -17,6 +17,7 @@ const fetchCryptoData = async () => {
         {
           cmid: crypto.symbol,
           name: crypto.name,
+          coingeckoId: crypto.id,
           marketCap: crypto.market_cap,
           marketCapRank: crypto.market_cap_rank,
           currentPrice: crypto.current_price,

@@ -14,6 +14,11 @@ const cryptoSchema = new mongoose.Schema(
       required: [true, 'Le nom complet de la crypto-monnaie est requis'],
       trim: true,
     },
+    coingeckoId: {
+      type: String,
+      required: [false],
+      trim: true,
+    },
     marketCap: {
       type: Number,
     },

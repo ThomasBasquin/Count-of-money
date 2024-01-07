@@ -19,7 +19,7 @@ await connectDB().catch(err => {
   process.exit(1);
 });
 
-// fetchCryptoData();
+fetchCryptoData();
 
 app.use(express.json());
 app.use(
