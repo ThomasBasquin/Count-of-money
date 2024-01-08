@@ -141,10 +141,6 @@ const HomePage = () => {
                                 }
                             </div>
                         </div>
-                        <div className='mx-auto border-r-[25px] border-b-[70px]
-border-l-[25px] border-solid border-r-transparent
-border-l-transparent border-b-yellow-500 border-l-red-500'>
-                        </div>
                     </div>
                 </div>
             )
