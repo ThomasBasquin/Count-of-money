@@ -3,6 +3,8 @@
 ## Description
 Count of Money est une application web de gestion de crypto-monnaies qui permet aux utilisateurs de suivre les prix, les tendances et d'autres informations importantes sur différentes crypto-monnaies. 
 
+<img width="959" alt="Capture d'écran 2024-02-04 134245" src="https://github.com/ThomasBasquin/Count-of-money/assets/60144822/aa9767eb-630e-4d36-8a15-e9cb06452b09">
+
 ## Caractéristiques
 - Suivi en temps réel des prix des crypto-monnaies.
 - Historique des prix et analyse des tendances.
